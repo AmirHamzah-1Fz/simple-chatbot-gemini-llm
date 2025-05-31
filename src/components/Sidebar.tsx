@@ -9,6 +9,7 @@ import type { Chat } from "@/lib/supabase";
 import { NewChatModal } from "./NewChatModal";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import * as Portal from "@radix-ui/react-portal";
 
 const Sidebar = () => {
   const { isOpen, toggleSidebar } = useSidebar();
@@ -146,6 +147,7 @@ const Sidebar = () => {
           </div>
         </div>
 
+        {/* Footer */}
         <div className="w-full flex flex-col border-t border-t-border-800 py-4 px-4">
           <a href="/api-key">
             <button
@@ -164,13 +166,16 @@ const Sidebar = () => {
             <h3 className="text-lg font-medium">Settings</h3>
           </button>
         </div>
+      </aside>
 
+      {/* Modals */}
+      <Portal.Root>
         <NewChatModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onChatCreated={handleChatCreated}
         />
-      </aside>
+      </Portal.Root>
     </>
   );
 };

@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Chat } from "@/lib/supabase";
+import * as Portal from "@radix-ui/react-portal";
 
 interface NewChatModalProps {
   isOpen: boolean;
@@ -34,8 +35,7 @@ export const NewChatModal = ({
           .insert([
             {
               title,
-              // Tambahkan user_id jika menggunakan autentikasi
-              // user_id: (await supabase.auth.getUser()).data.user?.id
+              messages: [],
             },
           ])
           .select()
@@ -65,17 +65,31 @@ export const NewChatModal = ({
   if (!isOpen) return null;
 
   return (
-    <>
-      <div className="fixed inset-0 bg-black/50 z-[9999]" onClick={onClose} />
-      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[400px] bg-background border border-border-800 rounded-2xl p-6 z-[10000]">
-        <h2 className="text-xl text-head mb-4">New Chat</h2>
+    <div className="fixed inset-0 flex items-center justify-center z-[10000]">
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Modal */}
+      <div
+        className="relative w-[90%] max-w-[400px] bg-background border border-border-800 rounded-2xl p-6 shadow-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <h2 id="modal-title" className="text-xl text-head mb-4">
+          New Chat
+        </h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter chat title..."
-            className="w-full p-3 rounded-xl bg-foreground-900 text-head outline-none border border-transparent focus:border-border-700"
+            className="w-full p-3 rounded-xl bg-foreground-900 text-head outline-none border border-transparent focus:border-border-700 transition-colors"
             autoFocus
           />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -83,14 +97,14 @@ export const NewChatModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl hover:bg-foreground-900"
+              className="px-4 py-2 rounded-xl hover:bg-foreground-900 transition-colors"
               disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={!title.trim() || loading}
             >
               {loading ? "Creating..." : "Create"}
@@ -98,6 +112,6 @@ export const NewChatModal = ({
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
