@@ -10,9 +10,14 @@ export async function POST(req: NextRequest) {
     }
     const ai = new GoogleGenAI({ apiKey });
     // Merge of prompt history
-    const chatHistory = messages
+    interface Message {
+      role: "user" | "assistant";
+      content: string;
+    }
+
+    const chatHistory: string = messages
       .map(
-        (msg: { role: string; content: any; }) =>
+        (msg: Message): string =>
           `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`
       )
       .join("\n");

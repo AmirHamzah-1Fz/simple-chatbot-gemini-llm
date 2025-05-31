@@ -71,7 +71,7 @@ const HomeContent = () => {
           return updated;
         });
       }
-    } catch (err) {
+    } catch (_error) {
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occured." },
