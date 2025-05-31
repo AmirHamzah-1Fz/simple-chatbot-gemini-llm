@@ -15,7 +15,7 @@ interface suggestionProps {
     className?: string;
 }
 
-const suggestionContent: suggestionType[] = [
+export const suggestionContent: suggestionType[] = [
   {
     icons: BiMessage,
     title: "Get advice",
