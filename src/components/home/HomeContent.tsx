@@ -4,6 +4,7 @@ import React from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
 import Suggestion, { suggestionContent } from "./Suggestion";
+import { useSidebar } from "../SidebarContext";
 
 interface MessageType {
   role: string;
@@ -13,6 +14,8 @@ interface MessageType {
 const dummyMessages: MessageType[] = [];
 
 const HomeContent = () => {
+  const { isOpen } = useSidebar();
+
   const [messages, setMessages] = React.useState(dummyMessages);
   const [input, setInput] = React.useState("");
 
@@ -67,7 +70,13 @@ const HomeContent = () => {
       )}
 
       {/* User Prompt */}
-      <div className="px-[5%] fixed bottom-0 max-lg:bottom-8 left-0 w-full z-20 bg-background/80 backdrop-blur-sm">
+      <div
+        className={`px-[5%] fixed bottom-6 max-lg:bottom-8 left-0 w-full z-20 bg-background/80 backdrop-blur-sm ${
+          isOpen
+            ? "lg:translate-x-1/9"
+            : "lg:translate-x-0"
+        }`}
+      >
         <div className="container max-w-3xl mx-auto w-full">
           <form
             onSubmit={handleSubmit}
