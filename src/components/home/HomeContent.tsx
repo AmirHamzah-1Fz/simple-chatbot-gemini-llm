@@ -49,21 +49,21 @@ const HomeContent = () => {
         }),
       });
       if (!response.ok) throw new Error("No response body");
-      
+
       // Create empty bot message
       setMessages((prev) => [...prev, { role: "bot", content: "" }]);
-      
+
       const reader = response.body?.getReader();
       if (!reader) throw new Error("No reader available");
-      
+
       let botMsg = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         const chunk = new TextDecoder().decode(value);
         botMsg += chunk;
-        
+
         // Update bot message with new chunk
         setMessages((prev) => {
           const updated = [...prev];
@@ -71,7 +71,8 @@ const HomeContent = () => {
           return updated;
         });
       }
-    } catch (_error) {
+      // @typescript-eslint/no-unused-vars
+    } catch (error) {
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occured." },
