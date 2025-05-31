@@ -34,19 +34,15 @@ export const suggestionContent: suggestionType[] = [
   },
   {
     icons: BiEditAlt,
-    title: "Creative poem",
+    title: "Poem",
   },
   {
     icons: MdOutlineNotes,
-    title: "Summarize text",
+    title: "Summarize",
   },
   {
     icons: BsCpu,
     title: "Tech news",
-  },
-  {
-    icons: BiMoney,
-    title: "Finance News",
   },
   {
     icons: BiMath,
@@ -88,19 +84,66 @@ export default function Suggestion({
 
   return (
     <div
-      className={`${className} container mx-auto w-full max-w-xl h-auto flex justify-center flex-wrap gap-3`}
+      className={`${className} container mx-auto w-full max-w-xl h-auto flex flex-col items-center gap-3`}
     >
-      {suggestionContent.slice(0, visibleItems).map((item, index) => (
-        <button
-          type="button"
-          key={index}
-          onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
-          className="cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/60 hover:bg-foreground-800/60 hover:text-primary active:bg-foreground-800/60 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
-        >
-          <item.icons className="w-5 h-5 shrink-0" />
-          <span className="font-normal lg:text-sm text-base">{item.title}</span>
-        </button>
-      ))}
+      {/* Baris 1: 2 kolom */}
+      <div className="flex w-full justify-center gap-3">
+        {suggestionContent.slice(0, 2).map((item, index) => (
+          <button
+            type="button"
+            key={index}
+            onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+          >
+            <item.icons className="w-5 h-5 shrink-0" />
+            <span className="font-normal text-sm">{item.title}</span>
+          </button>
+        ))}
+      </div>
+      {/* Baris 2: 3 kolom */}
+      <div className="flex w-full justify-center gap-3">
+        {suggestionContent.slice(2, 5).map((item, index) => (
+          <button
+            type="button"
+            key={index + 2}
+            onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+          >
+            <item.icons className="w-5 h-5 shrink-0" />
+            <span className="font-normal text-sm">{item.title}</span>
+          </button>
+        ))}
+      </div>
+      {/* Baris 3: 2 kolom */}
+      <div className="flex w-full justify-center gap-3">
+        {suggestionContent.slice(5, 7).map((item, index) => (
+          <button
+            type="button"
+            key={index + 5}
+            onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+          >
+            <item.icons className="w-5 h-5 shrink-0" />
+            <span className="font-normal text-sm">{item.title}</span>
+          </button>
+        ))}
+      </div>
+      {/* Responsif: tampilkan sisa item jika ada dan layar kecil */}
+      {visibleItems > 7 && (
+        <div className="flex w-full justify-center gap-3 flex-wrap">
+          {suggestionContent.slice(7, visibleItems).map((item, index) => (
+            <button
+              type="button"
+              key={index + 7}
+              onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
+              className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+            >
+              <item.icons className="w-5 h-5 shrink-0" />
+              <span className="font-normal text-sm">{item.title}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

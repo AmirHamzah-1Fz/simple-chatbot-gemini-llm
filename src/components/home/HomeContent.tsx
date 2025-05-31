@@ -82,11 +82,11 @@ const HomeContent = () => {
   };
 
   return (
-    <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative text-center">
+    <div className="container max-w-4xl mx-auto w-full h-[100dvh] relative text-center">
       {/* Greeting & Suggestion */}
       {!hasMessages && (
-        <div className="w-full h-auto flex flex-col items-center justify-center lg:mt-16 mt-20">
-          <h2>
+        <div className="w-full h-[calc(100dvh-120px)] -translate-y-6 flex flex-col items-center justify-center lg:mt-0 mt-0 min-h-[400px]">
+          <h2 className="text-4xl leading-12">
             Hello <span className="text-primary">Amir</span>, How can I Help You
             Today?
           </h2>
@@ -112,7 +112,7 @@ const HomeContent = () => {
                 <div className="flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 text-primary text-xl shrink-0">
                   <RiSupabaseFill className="w-6 h-6" />
                 </div>
-                <div className="max-w-[70%] max-md:max-w-[75%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
+                <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
                   <ReactMarkdown>{msg.content}</ReactMarkdown>
                   {isLoading && idx === messages.length - 1 && (
                     <span className="animate-pulse ml-1">|</span>
