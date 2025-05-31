@@ -82,7 +82,7 @@ const HomeContent = () => {
   };
 
   return (
-    <div className="container max-w-4xl mx-auto w-full h-[100dvh] relative text-center">
+    <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative text-center">
       {/* Greeting & Suggestion */}
       {!hasMessages && (
         <div className="w-full h-[calc(100dvh-120px)] -translate-y-6 flex flex-col items-center justify-center lg:mt-0 mt-0 min-h-[400px]">
@@ -96,7 +96,7 @@ const HomeContent = () => {
 
       {/* Chatbox UI */}
       {hasMessages && (
-        <div className="w-full h-[65dvh] mt-6 flex flex-col gap-10 px-2 py-6 overflow-y-auto items-stretch">
+        <div className="w-full h-[65dvh] mt-8 flex flex-col gap-10 px-2 py-6 overflow-y-auto items-stretch">
           {messages.map((msg, idx) =>
             msg.role === "user" ? (
               <div key={idx} className="flex w-full justify-end">
@@ -109,7 +109,7 @@ const HomeContent = () => {
                 key={idx}
                 className="flex w-full justify-start items-start gap-3"
               >
-                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 text-primary text-xl shrink-0">
+                <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
                   <RiSupabaseFill className="w-6 h-6" />
                 </div>
                 <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">

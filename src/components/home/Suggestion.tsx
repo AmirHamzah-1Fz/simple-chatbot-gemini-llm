@@ -7,8 +7,7 @@ import {
   BiCode,
   BiEditAlt,
   BiMath,
-  BiMessage,
-  BiMoney,
+  BiMessage
 } from "react-icons/bi";
 import { BsCpu } from "react-icons/bs";
 import { MdOutlineNotes } from "react-icons/md";
