@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: #00bba7;
+
+  --color-head: #fafafa;
+  --color-body: #71717b;
+
+  --color-background: #09090b;
+  --color-foreground-900: #18181b;
+  --color-foreground-800: #27272a;
+
+  --color-border-800: #27272a;
+  --color-border-700: oklch(37% 0.013 285.805);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .title {
+    @apply text-xl font-semibold;
+  }
+
+  .scale-btn {
+    @apply hover:scale-[0.95] active:scale-95;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply font-["figtree"] bg-background selection:bg-primary/15 selection:text-primary text-head;
+  }
+
+  h1 {
+    @apply text-4xl font-bold text-head;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold text-head;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold text-head;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  img,
+  a,
+  svg,
+  video,button {
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-tap-highlight-color: none;
+  }
 }
