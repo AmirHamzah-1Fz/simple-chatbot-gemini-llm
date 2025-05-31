@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@plugin "tailwind-scrollbar";
 
 @theme inline {
   --color-primary: #00bba7;
@@ -28,6 +29,10 @@
 @layer base {
   body {
     @apply font-["figtree"] bg-background selection:bg-primary/15 selection:text-primary text-head;
+  }
+
+  * {
+    @apply scrollbar-thin scrollbar-thumb-foreground-800 scrollbar-track-foreground-800/0;
   }
 
   h1 {
