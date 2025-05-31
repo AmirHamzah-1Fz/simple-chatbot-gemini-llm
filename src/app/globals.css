@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme inline {
   --color-primary: #00bba7;
@@ -48,7 +49,8 @@
   img,
   a,
   svg,
-  video,button {
+  video,
+  button {
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;

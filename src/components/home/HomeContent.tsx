@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
 import Suggestion from "./Suggestion";
 import { useSidebar } from "../SidebarContext";
-
+import ReactMarkdown from "react-markdown";
 interface MessageType {
   role: string;
   content: string;
@@ -18,15 +18,67 @@ const HomeContent = () => {
 
   const [messages, setMessages] = React.useState(dummyMessages);
   const [input, setInput] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const hasMessages = messages && messages.length > 0;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmed = input.trim();
     if (!trimmed) return;
     setMessages((prev) => [...prev, { role: "user", content: trimmed }]);
     setInput("");
+    setIsLoading(true);
+
+    // Streaming Gemini API call
+    try {
+      const response = await fetch("/api/gemini", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [...messages, { role: "user", content: trimmed }],
+        }),
+      });
+      if (!response.ok) throw new Error("No response body");
+      
+      // Create empty bot message
+      setMessages((prev) => [...prev, { role: "bot", content: "" }]);
+      
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error("No reader available");
+      
+      let botMsg = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        const chunk = new TextDecoder().decode(value);
+        botMsg += chunk;
+        
+        // Update bot message with new chunk
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "bot", content: botMsg };
+          return updated;
+        });
+      }
+    } catch (err) {
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", content: "Sorry, error has occured." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -48,8 +100,8 @@ const HomeContent = () => {
           {messages.map((msg, idx) =>
             msg.role === "user" ? (
               <div key={idx} className="flex w-full justify-end">
-                <div className="max-w-[70%] bg-gradient-to-r from-teal-600 to-background text-white rounded-2xl rounded-tr-md px-4 py-3 text-left shadow-md ml-auto">
-                  {msg.content}
+                <div className="max-w-[70%] max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-background text-white rounded-2xl rounded-tr-md px-4 py-2 text-left shadow-md ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
                 </div>
               </div>
             ) : (
@@ -60,21 +112,23 @@ const HomeContent = () => {
                 <div className="flex items-center justify-center w-9 h-9 rounded-full bg-primary/10 text-primary text-xl shrink-0">
                   <RiSupabaseFill className="w-6 h-6" />
                 </div>
-                <div className="max-w-[70%] bg-foreground-900 text-head rounded-2xl rounded-bl-sm px-4 py-3 text-left shadow-md">
-                  {msg.content}
+                <div className="max-w-[70%] max-md:max-w-[75%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  {isLoading && idx === messages.length - 1 && (
+                    <span className="animate-pulse ml-1">|</span>
+                  )}
                 </div>
               </div>
             )
           )}
+          <div ref={chatEndRef} />
         </div>
       )}
 
       {/* User Prompt */}
       <div
         className={`px-[5%] fixed bottom-6 max-lg:bottom-8 left-0 w-full z-20 bg-background/80 backdrop-blur-sm ${
-          isOpen
-            ? "lg:translate-x-1/9"
-            : "lg:translate-x-0"
+          isOpen ? "lg:translate-x-1/9" : "lg:translate-x-0"
         }`}
       >
         <div className="container max-w-3xl mx-auto w-full">
