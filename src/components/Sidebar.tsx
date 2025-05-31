@@ -50,7 +50,7 @@ const Sidebar = () => {
         <div className="w-full h-auto flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <div className="w-full flex items-center gap-1 justify-between">
             <h2 className="text-head text-lg truncate">
-              What's new in Next.js v15
+              What&apos;s new in Next.js v15
             </h2>
 
             {/* Add New Chat*/}
