@@ -3,7 +3,7 @@
 import React from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
-import Suggestion from "./Suggestion";
+import Suggestion, { suggestionContent } from "./Suggestion";
 
 interface MessageType {
   role: string;
@@ -35,7 +35,7 @@ const HomeContent = () => {
             Hello <span className="text-primary">Amir</span>, How can I Help You
             Today?
           </h2>
-          <Suggestion className="mt-8" />
+          <Suggestion className="mt-8" onSuggestionClick={setInput} />
         </div>
       )}
 
