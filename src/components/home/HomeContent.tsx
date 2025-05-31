@@ -1,14 +1,13 @@
 "use client";
 
+import type { Message } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
-import Suggestion from "./Suggestion";
-import { useSidebar } from "../SidebarContext";
 import ReactMarkdown from "react-markdown";
 import { NewChatModal } from "../NewChatModal";
-import { useRouter } from "next/navigation";
-import type { Message } from "@/lib/supabase";
+import { useSidebar } from "../SidebarContext";
 
 const HomeContent = () => {
   const { isOpen } = useSidebar();
@@ -75,7 +74,7 @@ const HomeContent = () => {
           return updated;
         });
       }
-    } catch (error: unknown) {
+    } catch (error: unknown) { // @typescript-eslint/no-unused-vars
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occurred." },

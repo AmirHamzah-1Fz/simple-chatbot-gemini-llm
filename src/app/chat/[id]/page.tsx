@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { use } from "react";
-import { supabase } from "@/lib/supabase";
+import { NewChatModal } from "@/components/NewChatModal";
 import type { Chat, Message } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
+import { use, useEffect, useRef, useState } from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
 import ReactMarkdown from "react-markdown";
-import { useSidebar } from "@/components/SidebarContext";
-import { NewChatModal } from "@/components/NewChatModal";
-import { useRouter } from "next/navigation";
 
 export default function ChatPage({
   params,
@@ -17,7 +15,6 @@ export default function ChatPage({
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = use(params);
-  const { isOpen } = useSidebar();
   const [chat, setChat] = useState<Chat | null>(null);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -119,7 +116,7 @@ export default function ChatPage({
 
       const finalMessages = [...newMessages, { role: "bot", content: botMsg }];
       await updateChatMessages(finalMessages);
-    } catch (error: unknown) {
+    } catch (error: unknown) { // @typescript-eslint/no-unused-vars
       const errorMessages = [
         ...newMessages,
         { role: "bot", content: "Sorry, error has occurred." },

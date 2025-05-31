@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Chat } from "@/lib/supabase";
-import * as Portal from "@radix-ui/react-portal";
 
 interface NewChatModalProps {
   isOpen: boolean;
