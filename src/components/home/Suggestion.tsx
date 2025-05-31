@@ -55,9 +55,14 @@ export default function Suggestion({className}: suggestionProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      // lg breakpoint in Tailwind is 1024px
-      const isLargeScreen = window.innerWidth >= 1024;
-      setVisibleItems(isLargeScreen ? 8 : 6);
+      const width = window.innerWidth;
+      if (width <= 370) {
+        setVisibleItems(4);
+      } else if (width < 1024) {
+        setVisibleItems(6);
+      } else {
+        setVisibleItems(8);
+      }
     };
 
     // Initial check

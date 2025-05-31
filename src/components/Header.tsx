@@ -1,6 +1,6 @@
 "use client";
 
-import { BiKey, BiMenuAltLeft } from "react-icons/bi";
+import { BiEdit, BiKey, BiMenuAltLeft } from "react-icons/bi";
 import { FaGithub } from "react-icons/fa";
 import { LuPanelLeftClose } from "react-icons/lu";
 import { RiSupabaseFill } from "react-icons/ri";
@@ -65,9 +65,9 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Use API Key */}
-        <button className="sm:hidden primary flex items-center gap-2 p-2 bg-foreground-900 border border-transparent hover:border-border-700 scale-btn transition-[background-color, scale] duration-100 ease-out active:border-border-700 active:bg-foreground-800 hover:bg-foreground-800 rounded-xl cursor-pointer">
-          <BiKey className="rotate-[-45deg] w-[24px] h-[24px]" />
+        {/* Add New Chat (Mobile) */}
+        <button className="md:hidden text-primary flex items-center gap-2 p-2 bg-foreground-900 border border-transparent hover:border-border-700 scale-btn transition-[background-color, scale] duration-100 ease-out active:border-border-700 active:bg-foreground-800 hover:bg-foreground-800 rounded-xl cursor-pointer">
+          <BiEdit className="w-[24px] h-[24px]" />
         </button>
       </nav>
     </header>
