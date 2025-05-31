@@ -50,7 +50,7 @@ const Sidebar = () => {
         <div className="w-full h-auto flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <div className="w-full flex items-center gap-1 justify-between">
             <h2 className="text-head text-lg truncate">
-              What&apos;s new in Next.js v15
+              New Chat
             </h2>
 
             {/* Add New Chat*/}
@@ -69,17 +69,18 @@ const Sidebar = () => {
           </div>
         </div>
 
+        {/* Chat History */}
         <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <h3 className="text-body text-lg">History</h3>
 
-          <div className="w-full h-full flex flex-col gap-3">
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
-            <div className="w-full h-[14px] rounded-xl bg-foreground-900" />
+          <div className="w-full h-full flex flex-col gap-4">
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Apa yang baru di Next.js v15</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Tentang Backend Development</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Analisis Struktur Teks</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Machine Learning: Probabilitas, Statistika, Kalkulus</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Nasihat Keuangan</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Masalah pada Aplikasi Flutter</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Jetpack Compose Kotlin</div>
           </div>
         </div>
 

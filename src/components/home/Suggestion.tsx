@@ -92,10 +92,10 @@ export default function Suggestion({
             type="button"
             key={index}
             onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
-            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/60 hover:text-primary active:bg-foreground-800/60 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
           >
             <item.icons className="w-5 h-5 shrink-0" />
-            <span className="font-normal text-sm">{item.title}</span>
+            <span className="font-normal text-sm lg:text-base">{item.title}</span>
           </button>
         ))}
       </div>
@@ -106,10 +106,10 @@ export default function Suggestion({
             type="button"
             key={index + 2}
             onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
-            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/60 hover:text-primary active:bg-foreground-800/60 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
           >
             <item.icons className="w-5 h-5 shrink-0" />
-            <span className="font-normal text-sm">{item.title}</span>
+            <span className="font-normal text-sm lg:text-base">{item.title}</span>
           </button>
         ))}
       </div>
@@ -120,10 +120,10 @@ export default function Suggestion({
             type="button"
             key={index + 5}
             onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
-            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+            className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/60 hover:text-primary active:bg-foreground-800/60 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
           >
             <item.icons className="w-5 h-5 shrink-0" />
-            <span className="font-normal text-sm">{item.title}</span>
+            <span className="font-normal text-sm lg:text-base">{item.title}</span>
           </button>
         ))}
       </div>
@@ -135,10 +135,10 @@ export default function Suggestion({
               type="button"
               key={index + 7}
               onClick={() => onSuggestionClick && onSuggestionClick(item.title)}
-              className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/70 hover:text-primary active:bg-foreground-800/70 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
+              className="min-w-0 cursor-pointer scale-btn transition-[scale] duration-100 ease-out w-auto h-auto px-4 py-2 rounded-xl flex items-center justify-center gap-2 text-primary lg:bg-foreground-900 bg-foreground-900/70 hover:bg-foreground-800/60 hover:text-primary active:bg-foreground-800/60 border border-transparent hover:border-primary/40 max-lg:active:border-primary/40 active:border-transparent"
             >
               <item.icons className="w-5 h-5 shrink-0" />
-              <span className="font-normal text-sm">{item.title}</span>
+              <span className="font-normal text-sm lg:text-base">{item.title}</span>
             </button>
           ))}
         </div>
