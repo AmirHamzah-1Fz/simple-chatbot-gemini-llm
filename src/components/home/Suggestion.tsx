@@ -4,6 +4,7 @@ import { IconType } from "react-icons";
 import { BiAtom, BiCode, BiEdit, BiMath, BiMessage, BiMoney, BiVideo } from "react-icons/bi";
 import { BsCpu } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { MdOutlineNotes } from "react-icons/md";
 
 interface suggestionType {
   icons: IconType;
@@ -28,8 +29,8 @@ const suggestionContent: suggestionType[] = [
     title: "Creative poem",
   },
   {
-    icons: BiVideo,
-    title: "Summarize videos",
+    icons: MdOutlineNotes,
+    title: "Summarize text",
   },
   {
     icons: BsCpu,
