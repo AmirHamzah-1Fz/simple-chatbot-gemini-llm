@@ -1,10 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 import { NextRequest } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 
 export async function POST(req: NextRequest) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     const { messages } = await req.json();
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -14,8 +12,7 @@ export async function POST(req: NextRequest) {
     // Merge of prompt history
     const chatHistory = messages
       .map(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (msg: any) =>
+        (msg: { role: string; content: any; }) =>
           `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`
       )
       .join("\n");
@@ -48,7 +45,8 @@ export async function POST(req: NextRequest) {
         Connection: "keep-alive",
       },
     });
-  } catch (err: any) {
-    return new Response("Error: " + err.message, { status: 500 });
+  } catch (err) {
+    const error = err as Error;
+    return new Response("Error: " + error.message, { status: 500 });
   }
 }
