@@ -74,7 +74,7 @@ const HomeContent = () => {
           return updated;
         });
       }
-    } catch (error: unknown) { // @typescript-eslint/no-unused-vars
+    } catch (error: unknown) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occurred." },
