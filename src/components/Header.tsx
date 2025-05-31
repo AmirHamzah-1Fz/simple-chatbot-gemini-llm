@@ -5,7 +5,6 @@ import { FaGithub } from "react-icons/fa";
 import { LuPanelLeftClose } from "react-icons/lu";
 import { RiSupabaseFill } from "react-icons/ri";
 import { useSidebar } from "./SidebarContext";
-
 const Header = () => {
   const { isOpen, toggleSidebar } = useSidebar();
 
