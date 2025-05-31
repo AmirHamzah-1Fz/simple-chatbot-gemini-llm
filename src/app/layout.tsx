@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SidebarProvider } from "@/components/SidebarContext";
 
 const figtree = Figtree({
   variable: "--font-figtree",
@@ -33,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${figtree.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <SidebarProvider>{children}</SidebarProvider>
       </body>
     </html>
   );

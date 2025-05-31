@@ -1,9 +1,9 @@
 "use client"
 
-import { IconType } from "react-icons";
-import { BiAtom, BiCode, BiEdit, BiMath, BiMessage, BiMoney, BiVideo } from "react-icons/bi";
-import { BsCpu } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { IconType } from "react-icons";
+import { BiAtom, BiCode, BiEditAlt, BiMath, BiMessage, BiMoney } from "react-icons/bi";
+import { BsCpu } from "react-icons/bs";
 import { MdOutlineNotes } from "react-icons/md";
 
 interface suggestionType {
@@ -25,7 +25,7 @@ const suggestionContent: suggestionType[] = [
     title: "Write a code",
   },
   {
-    icons: BiEdit,
+    icons: BiEditAlt,
     title: "Creative poem",
   },
   {
