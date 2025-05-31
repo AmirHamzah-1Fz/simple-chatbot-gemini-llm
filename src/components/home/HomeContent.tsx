@@ -3,7 +3,7 @@
 import React from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
-import Suggestion, { suggestionContent } from "./Suggestion";
+import Suggestion from "./Suggestion";
 import { useSidebar } from "../SidebarContext";
 
 interface MessageType {
