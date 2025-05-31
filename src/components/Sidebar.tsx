@@ -2,57 +2,12 @@
 
 import { BiEdit, BiKey, BiSearch } from "react-icons/bi";
 import { CiSettings } from "react-icons/ci";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { useSidebar } from "./SidebarContext";
-import { supabase } from "@/lib/supabase";
-import type { Chat } from "@/lib/supabase";
-import { NewChatModal } from "./NewChatModal";
-import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const { isOpen, toggleSidebar } = useSidebar();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
-  const pathname = usePathname();
-
-  // Fetch chat history
-  useEffect(() => {
-    const fetchChats = async () => {
-      const { data, error } = await supabase
-        .from("chats")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching chats:", error);
-        return;
-      }
-
-      setChats(data);
-    };
-
-    fetchChats();
-
-    // Subscribe to chat changes
-    const channel = supabase
-      .channel("chats")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "chats" },
-        () => {
-          fetchChats();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      channel.unsubscribe();
-    };
-  }, []);
 
   // Close sidebar on click outside (mobile only)
   useEffect(() => {
@@ -70,18 +25,6 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [isOpen, toggleSidebar]);
-
-  const handleChatCreated = useCallback(
-    (newChat: Chat) => {
-      setChats((prev) => [newChat, ...prev]);
-      router.push(`/chat/${newChat.id}`);
-    },
-    [router]
-  );
-
-  const filteredChats = chats.filter((chat) =>
-    chat.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <>
@@ -106,13 +49,12 @@ const Sidebar = () => {
       >
         <div className="w-full h-auto flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <div className="w-full flex items-center gap-1 justify-between">
-            <h2 className="text-head text-lg truncate">Chat History</h2>
+            <h2 className="text-head text-lg truncate">
+              New Chat
+            </h2>
 
             {/* Add New Chat*/}
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="w-auto h-auto flex items-center justify-center p-2 rounded-2xl bg-foreground-900 text-head hover:bg-foreground-800 transition-colors"
-            >
+            <button className="w-auto h-auto flex items-center justify-center p-2 rounded-2xl bg-foreground-900 text-head hover:bg-foreground-800 transition-colors">
               <BiEdit className="w-6 h-6 shrink-0" />
             </button>
           </div>
@@ -120,29 +62,25 @@ const Sidebar = () => {
             <BiSearch className="w-5 h-5 shrink-0" />
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="ring-none outline-none w-full bg-transparent placeholder:text-body text-head"
-              placeholder="Search chats..."
+              id="search"
+              className="ring-none outline-none placeholder:text-body text-head"
+              placeholder="Find whats..."
             />
           </div>
         </div>
 
         {/* Chat History */}
-        <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-4 pb-12 border-b border-border-800">
-          <h3 className="text-lg font-semibold text-body pl-2">History</h3>
-          <div className="w-full h-full flex flex-col gap-0">
-            {filteredChats.map((chat) => (
-              <Link
-                key={chat.id}
-                href={`/chat/${chat.id}`}
-                className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
-                  pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
-                }`}
-              >
-                {chat.title}
-              </Link>
-            ))}
+        <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
+          <h3 className="text-body text-lg">History</h3>
+
+          <div className="w-full h-full flex flex-col gap-4">
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Apa yang baru di Next.js v15</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Tentang Backend Development</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Analisis Struktur Teks</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Machine Learning: Probabilitas, Statistika, Kalkulus</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Nasihat Keuangan</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Masalah pada Aplikasi Flutter</div>
+            <div className="text-head font-medium text-sm w-full h-fit truncate cursor-pointer">Jetpack Compose Kotlin</div>
           </div>
         </div>
 
@@ -164,12 +102,6 @@ const Sidebar = () => {
             <h3 className="text-lg font-medium">Settings</h3>
           </button>
         </div>
-
-        <NewChatModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onChatCreated={handleChatCreated}
-        />
       </aside>
     </>
   );
