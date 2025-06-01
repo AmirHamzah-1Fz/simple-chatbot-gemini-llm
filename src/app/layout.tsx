@@ -24,13 +24,6 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Thunders AI - Quick Start",
-    description: "Chat with ThundersAI powered by Google Gemini AI.",
-    images: ["/thunders-ai-favicon.svg"],
-    creator: "@yourtwitter",
-  },
 };
 
 export default function RootLayout({
