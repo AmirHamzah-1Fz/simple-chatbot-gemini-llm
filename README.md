@@ -1,3 +1,5 @@
+<img src="public/next.svg" alt="Next.js" width="140" style="margin-right: 18px; margin-bottom: 6px" /><img src="public/supabase-logo-icon.svg" alt="Supabase" width="40" style="margin-right: 18px; margin-bottom: 6px" /><img src="public/vercel.svg" alt="Vercel" width="40" style="margin-right: 18px; margin-bottom: 6px" /><img src="public/google-gemini-icon.svg" alt="Vercel" width="40" style="margin-right: 18px; margin-bottom: 6px" />
+
 # Simple Chatbot Interface
 
 A simple web-based chatbot interface powered by Google's Gemini LLM API. This project allows you to interact with an advanced language model in real-time.
