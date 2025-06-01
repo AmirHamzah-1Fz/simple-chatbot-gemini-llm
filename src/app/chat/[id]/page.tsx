@@ -5,8 +5,9 @@ import type { Chat, Message } from "@/lib/supabase-client";
 import { supabase } from "@/lib/supabase-client";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useRef, useState } from "react";
-import { BiPlus, BiSend } from "react-icons/bi";
+import { BiCopy, BiPlus, BiSend } from "react-icons/bi";
 import { RiSupabaseFill } from "react-icons/ri";
+import { BsCheckLg } from "react-icons/bs";
 import ReactMarkdown from "react-markdown";
 import Suggestion from "@/components/home/Suggestion";
 
@@ -27,6 +28,7 @@ export default function ChatPage({
   const { isOpen } = useSidebar();
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -136,6 +138,40 @@ export default function ChatPage({
       setIsLoading(false);
     }
   };
+  const handleCopyText = async (text: string, index: number) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        // For modern browsers
+        await navigator.clipboard.writeText(text);
+      } else {
+        // For OLder browser
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          document.execCommand("copy");
+          textArea.remove();
+        } catch (error) {
+          console.error("Failed to copy text: ", error);
+          textArea.remove();
+          return;
+        }
+      }
+
+      setCopiedIndex(index);
+      setTimeout(() => {
+        setCopiedIndex(null);
+      }, 2000);
+    } catch (error) {
+      console.error("Failed to copy text: ", error);
+    }
+  };
 
   if (!chat) {
     return (
@@ -180,18 +216,31 @@ export default function ChatPage({
                   </div>
                 </div>
               ) : (
-                <div
-                  key={idx}
-                  className="flex w-full justify-start items-start gap-3 "
-                >
-                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
-                    <RiSupabaseFill className="w-6 h-6" />
+                <div key={idx} className="flex flex-col w-full gap-2">
+                  <div className="flex w-full justify-start items-start gap-3">
+                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
+                      <RiSupabaseFill className="w-6 h-6" />
+                    </div>
+                    <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      {isLoading && idx === chat.messages.length - 1 && (
+                        <span className="animate-pulse ml-1">|</span>
+                      )}
+                    </div>
                   </div>
-                  <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
-                    {isLoading && idx === chat.messages.length - 1 && (
-                      <span className="animate-pulse ml-1">|</span>
-                    )}
+                  <div className="flex items-center gap-2 pl-12">
+                    <button
+                      onClick={() => handleCopyText(msg.content, idx)}
+                      className="p-1.5 hover:bg-primary/10 active:bg-primary/10 rounded-lg text-primary transition-colors flex items-center gap-1.5 text-xs"
+                      title="Copy text"
+                    >
+                      {copiedIndex === idx ? (
+                        <BsCheckLg className="w-4 h-4" />
+                      ) : (
+                        <BiCopy className="w-4 h-4" />
+                      )}
+                      {copiedIndex === idx ? "Copied!" : "Copy message"}
+                    </button>
                   </div>
                 </div>
               )
