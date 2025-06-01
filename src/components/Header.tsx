@@ -5,9 +5,11 @@ import { useState } from "react";
 import { BiEdit, BiKey, BiMenuAltLeft } from "react-icons/bi";
 import { FaGithub } from "react-icons/fa";
 import { LuPanelLeftClose } from "react-icons/lu";
-import { RiSupabaseFill } from "react-icons/ri";
 import { NewChatModal } from "./NewChatModal";
 import { useSidebar } from "./SidebarContext";
+
+import Logo from "../assets/logo/thunders-ai.svg";
+import Image from "next/image";
 
 const Header = () => {
   const { isOpen, toggleSidebar } = useSidebar();
@@ -26,7 +28,7 @@ const Header = () => {
     <>
       <header className="h-18 relative bg-background border-b border-border-800 flex items-center justify-between px-[4%]">
         {/* Sidebar Menu Desktop */}
-        <div className="max-lg:hidden flex items-center gap-3">
+        <div className="max-lg:hidden flex items-center gap-4">
           <button
             onClick={toggleSidebar}
             className="text-primary flex items-center gap-2 p-2 bg-foreground-900 border border-transparent hover:border-border-700 scale-btn transition-[background-color, scale] duration-100 ease-out active:border-border-700 active:bg-foreground-800 hover:bg-foreground-800 rounded-xl cursor-pointer"
@@ -39,10 +41,11 @@ const Header = () => {
           </button>
 
           {/* Logo */}
-          <div className="max-lg:hidden w-auto h-auto flex items-center gap-4 max-md:gap-3">
-            <RiSupabaseFill className="w-6 h-6 text-primary" />
-            <h1 className="text-xl">ThunderAI</h1>
-          </div>
+          <a href="/" className="max-lg:hidden w-auto h-auto flex items-center gap-3">
+            {/* <Image src={Logo} alt="Logo" className="w-6 h-6 text-primary" /> */}
+            <Image alt="Logo" src={Logo} className="w-6 h-6" />
+            <h1 className="text-xl">ThundersAI</h1>
+          </a>
         </div>
 
         {/* Sidebar Menu Mobile */}
@@ -58,10 +61,10 @@ const Header = () => {
         </button>
 
         {/* Logo */}
-        <div className="lg:hidden w-auto h-auto flex items-center gap-4 max-md:gap-3">
-          <RiSupabaseFill className="w-6 h-6 text-primary" />
-          <h1 className="text-xl">ThunderAI</h1>
-        </div>
+        <a href="/" className="lg:hidden w-auto h-auto flex items-center gap-4 max-md:gap-3">
+          <Image src={Logo} alt="Logo" className="w-6 h-6 text-primary" />
+          <h1 className="text-xl">ThundersAI</h1>
+        </a>
 
         {/* Navigation */}
         <nav className="w-auto h-auto text-primary">

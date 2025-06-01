@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 
-const inter = Figtree({ subsets: ["latin"] });
+const figtree = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ThunderAI Chat",
-  description: "Chat with ThunderAI powered by Google Gemini",
+  title: "ThundersAI - Quick Start",
+  description: "Chat with ThundersAI powered by Google Gemini",
 };
 
 export default function RootLayout({
@@ -17,7 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <link rel="icon" href="/thunders-ai-favicon.svg" type="image/svg+xml" />
+      <body className={figtree.className}>
         <SidebarProvider>{children}</SidebarProvider>
       </body>
     </html>

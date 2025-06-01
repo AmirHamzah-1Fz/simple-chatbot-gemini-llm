@@ -177,7 +177,7 @@ const Sidebar = () => {
                   key={chat.id}
                   href={`/chat/${chat.id}`}
                   className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 active:bg-foreground-900 ${
-                    pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
+                    pathname === `/chat/${chat.id}` ? "bg-foreground-900 text-primary" : ""
                   }`}
                 >
                   {chat.title}

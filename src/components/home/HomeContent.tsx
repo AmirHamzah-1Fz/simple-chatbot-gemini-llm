@@ -4,10 +4,12 @@ import type { Message } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { BiPlus, BiSend } from "react-icons/bi";
-import { RiSupabaseFill } from "react-icons/ri";
 import ReactMarkdown from "react-markdown";
 import { NewChatModal } from "../NewChatModal";
 import { useSidebar } from "../SidebarContext";
+import Image from "next/image";
+
+import Logo from "../../assets/logo/thunders-ai.svg";
 
 const HomeContent = () => {
   const { isOpen } = useSidebar();
@@ -74,7 +76,8 @@ const HomeContent = () => {
           return updated;
         });
       }
-    } catch (error: unknown) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (error: unknown) {
+      // eslint-disable-line @typescript-eslint/no-unused-vars
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occurred." },
@@ -90,7 +93,8 @@ const HomeContent = () => {
         {/* Welcome Screen */}
         {!hasMessages && (
           <div className="w-full h-[calc(100dvh-120px)] -translate-y-6 flex flex-col items-center justify-center lg:mt-0 mt-0 min-h-[400px]">
-            <h2 className="text-4xl leading-12 mb-8">Welcome to ThunderAI</h2>
+            <Image src={Logo} alt="Logo" className="w-5 h-5 text-primary" />
+            <h2 className="text-4xl leading-12 mb-8 mt-4">Welcome to Thunders AI</h2>
             <button
               onClick={handleNewChat}
               className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors"
@@ -120,7 +124,7 @@ const HomeContent = () => {
                   className="flex w-full justify-start items-start gap-3"
                 >
                   <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
-                    <RiSupabaseFill className="w-6 h-6" />
+                    <Image src={Logo} alt="Avatar" className="w-6 h-6" />
                   </div>
                   <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -153,15 +157,20 @@ const HomeContent = () => {
                   className="w-auto scale-btn transition-[background-color, scale] duration-200 ease-in-out h-auto flex items-center justify-center p-2 rounded-full hover:bg-foreground-800 border border-transparent hover:border-border-700 active:border-border-700 text-primary bg-foreground-900"
                 >
                   <BiPlus className="shrink-0 w-7 h-7" />
-                </button>
-
+                </button>{" "}
                 <textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Hello world!"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit(e as any);
+                    }
+                  }}
+                  placeholder="Press Enter to send, Shift + Enter for new line"
                   className="flex-1 h-auto px-2 min-h-[40px] ring-none outline-none resize-none placeholder:text-body leading-normal bg-transparent"
+                  aria-label="Chat input"
                 />
-
                 <button
                   type="submit"
                   className="w-auto scale-btn transition-[background-color, scale] duration-200 ease-in-out h-auto flex items-center justify-center p-2 rounded-full hover:bg-foreground-800 border border-transparent hover:border-border-700 active:border-border-700 text-primary bg-foreground-900"

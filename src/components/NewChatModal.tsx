@@ -79,7 +79,7 @@ export const NewChatModal = ({
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        <h2 id="modal-title" className="text-xl text-head mb-4">
+        <h2 id="modal-title" className="text-xl text-primary mb-4">
           New Chat
         </h2>
         <form onSubmit={handleSubmit}>
@@ -88,7 +88,7 @@ export const NewChatModal = ({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter chat title..."
-            className="w-full p-3 rounded-xl bg-foreground-900 text-head outline-none border border-transparent focus:border-border-700 transition-colors"
+            className="w-full p-3 rounded-xl placeholder:text-body text-head bg-foreground-900 outline-none border border-primary focus:border-primary transition-colors"
             autoFocus
           />
           {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
@@ -103,7 +103,7 @@ export const NewChatModal = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               disabled={!title.trim() || loading}
             >
               {loading ? "Creating..." : "Create"}

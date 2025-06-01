@@ -1,16 +1,18 @@
 "use client";
 
+import Suggestion from "@/components/home/Suggestion";
 import { NewChatModal } from "@/components/NewChatModal";
 import type { Chat, Message } from "@/lib/supabase-client";
 import { supabase } from "@/lib/supabase-client";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useRef, useState } from "react";
 import { BiCopy, BiPlus, BiSend } from "react-icons/bi";
-import { RiSupabaseFill } from "react-icons/ri";
 import { BsCheckLg } from "react-icons/bs";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import Suggestion from "@/components/home/Suggestion";
+import Image from "next/image";
+
+import Logo from "../../../assets/logo/thunders-ai.svg";
 
 import Layout from "@/components/Layout";
 import { useSidebar } from "@/components/SidebarContext";
@@ -216,7 +218,7 @@ export default function ChatPage({
             chat.messages?.map((msg, idx) =>
               msg.role === "user" ? (
                 <div key={idx} className="flex w-full justify-end">
-                  <div className="max-w-[70%] w-fit max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-teal-700 selection:bg-foreground-800/20 selection:text-foreground-800 shadow-lg shadow-primary/30 text-white rounded-2xl rounded-tr-md px-4 py-2 text-left ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-head prose-em:text-head prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-head prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
+                  <div className="max-w-[70%] w-fit max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-teal-700 selection:bg-foreground-800/20 selection:text-foreground-800 shadow-lg shadow-primary/30 text-white rounded-2xl rounded-tr-md px-4 py-2 text-left ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:p-0 prose-code:text-primary prose-code:bg-transparent prose-a:text-head prose-em:text-head prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-head prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {msg.content}
                     </ReactMarkdown>
@@ -226,9 +228,9 @@ export default function ChatPage({
                 <div key={idx} className="flex flex-col w-full gap-2">
                   <div className="flex w-full justify-start items-start gap-3">
                     <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
-                      <RiSupabaseFill className="w-6 h-6" />
+                      <Image src={Logo} alt="Logo" className="w-5.5 h-5.5" />
                     </div>
-                    <div className="lg:max-w-[70%] w-fit max-md:max-w-[100%] min-w-0 bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
+                    <div className="lg:max-w-[70%] w-fit max-md:max-w-[100%] min-w-0 bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:p-0 prose-code:text-primary prose-code:bg-transparent prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
                       <div className="w-full overflow-x-auto max-w-full">
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
@@ -244,9 +246,6 @@ export default function ChatPage({
                           {msg.content}
                         </ReactMarkdown>
                       </div>
-                      {isLoading && idx === chat.messages.length - 1 && (
-                        <span className="animate-pulse ml-1 text-primary">_</span>
-                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-2 pl-12">
@@ -276,7 +275,7 @@ export default function ChatPage({
               <div className="flex flex-col w-full gap-2">
                 <div className="flex w-fit h-auto p-2 justify-start items-start gap-3">
                   <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
-                    <RiSupabaseFill className="w-6 h-6" />
+                    <Image src={Logo} alt="Logo" className="w-6 h-6" />
                   </div>
                   <div
                     className="lg:max-w-[70%] max-md:max-w-[100%] w-full min-w-0 bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md flex items-center"
@@ -326,8 +325,15 @@ export default function ChatPage({
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Hello world!"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e as any);
+                  }
+                }}
+                placeholder="Press Enter to send, Shift + Enter for new line"
                 className="flex-1 h-auto px-2 min-h-[40px] ring-none outline-none resize-none placeholder:text-body leading-normal bg-transparent"
+                aria-label="Chat input"
               />
 
               <button
