@@ -186,7 +186,11 @@ export default function ChatPage({
     <Layout>
       <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative">
         {/* Chat Messages */}
-        <div className={`w-full h-[65dvh] flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch ${!chat.messages || chat.messages.length === 0 ? "py-0" : "py-10"}`}>
+        <div
+          className={`w-full h-[65dvh] flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch ${
+            !chat.messages || chat.messages.length === 0 ? "py-0" : "py-10"
+          }`}
+        >
           {!chat.messages || chat.messages.length === 0 ? (
             <div className="w-full h-[100dvh] translate-y-10 flex flex-col items-center justify-center text-center">
               <h2 className="text-4xl leading-12">
@@ -241,7 +245,7 @@ export default function ChatPage({
                         </ReactMarkdown>
                       </div>
                       {isLoading && idx === chat.messages.length - 1 && (
-                        <span className="animate-pulse ml-1">|</span>
+                        <span className="animate-pulse ml-1 text-primary">_</span>
                       )}
                     </div>
                   </div>
@@ -263,6 +267,40 @@ export default function ChatPage({
               )
             )
           )}
+
+          {/* Loading AI response */}
+          {isLoading &&
+            chat.messages &&
+            chat.messages.length > 0 &&
+            chat.messages[chat.messages.length - 1]?.role === "user" && (
+              <div className="flex flex-col w-full gap-2">
+                <div className="flex w-fit h-auto p-2 justify-start items-start gap-3">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
+                    <RiSupabaseFill className="w-6 h-6" />
+                  </div>
+                  <div
+                    className="lg:max-w-[70%] max-md:max-w-[100%] w-full min-w-0 bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md flex items-center"
+                    style={{ minHeight: 40 }}
+                  >
+                    <span className="inline-block align-middle">
+                      <span
+                        className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"
+                        style={{ animationDelay: "0ms" }}
+                      ></span>
+                      <span
+                        className="inline-block w-2 h-2 bg-primary rounded-full mx-1 animate-pulse"
+                        style={{ animationDelay: "200ms" }}
+                      ></span>
+                      <span
+                        className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"
+                        style={{ animationDelay: "400ms" }}
+                      ></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
           <div ref={chatEndRef} />
         </div>
 
