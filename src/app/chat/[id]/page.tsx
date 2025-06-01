@@ -123,8 +123,7 @@ export default function ChatPage({
 
       const finalMessages = [...newMessages, { role: "bot", content: botMsg }];
       await updateChatMessages(finalMessages);
-    } catch (error: unknown) {
-      // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (error: unknown) { // eslint-disable-line @typescript-eslint/no-unused-vars
       const errorMessages = [
         ...newMessages,
         { role: "bot", content: "Sorry, error has occurred." },
