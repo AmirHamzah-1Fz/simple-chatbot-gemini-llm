@@ -186,7 +186,7 @@ export default function ChatPage({
     <Layout>
       <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative">
         {/* Chat Messages */}
-        <div className="w-full h-[65dvh] flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch py-10">
+        <div className={`w-full h-[65dvh] flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch ${!chat.messages || chat.messages.length === 0 ? "py-0" : "py-10"}`}>
           {!chat.messages || chat.messages.length === 0 ? (
             <div className="w-full h-[100dvh] translate-y-10 flex flex-col items-center justify-center text-center">
               <h2 className="text-4xl leading-12">
