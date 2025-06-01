@@ -1,12 +1,13 @@
 "use client";
 
-import { BiEdit, BiKey, BiSearch, BiPlus } from "react-icons/bi";
+import { BiEdit, BiKey, BiSearch, BiPlus, BiTrash } from "react-icons/bi";
 import { CiSettings } from "react-icons/ci";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useSidebar } from "./SidebarContext";
 import { supabase } from "@/lib/supabase-client";
 import type { Chat } from "@/lib/supabase-client";
 import { NewChatModal } from "./NewChatModal";
+import { EditChatModal } from "./EditChatModal";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import * as Portal from "@radix-ui/react-portal";
@@ -20,6 +21,8 @@ const Sidebar = () => {
   const [isLoadingChats, setIsLoadingChats] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
   // Get current chat title
   const currentChatId = pathname?.split("/").pop();
@@ -79,7 +82,6 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [isOpen, toggleSidebar]);
-
   const handleChatCreated = useCallback(
     (newChat: Chat) => {
       setChats((prev) => [newChat, ...prev]);
@@ -87,6 +89,40 @@ const Sidebar = () => {
     },
     [router]
   );
+
+  const handleDeleteChat = async (chatId: string) => {
+    try {
+      const { error } = await supabase.from("chats").delete().eq("id", chatId);
+
+      if (error) throw error;
+
+      setChats((prev) => prev.filter((chat) => chat.id !== chatId));
+      if (chatId === currentChatId) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
+  };
+
+  const handleEditChat = async (chat: Chat, newTitle: string) => {
+    try {
+      const { error } = await supabase
+        .from("chats")
+        .update({ title: newTitle })
+        .eq("id", chat.id);
+
+      if (error) throw error;
+
+      setChats((prev) =>
+        prev.map((c) => (c.id === chat.id ? { ...c, title: newTitle } : c))
+      );
+      setEditModalOpen(false);
+      setSelectedChat(null);
+    } catch (error) {
+      console.error("Error updating chat:", error);
+    }
+  };
 
   const filteredChats = chats.filter((chat) =>
     chat.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -149,7 +185,7 @@ const Sidebar = () => {
           <h3 className="text-lg font-semibold text-body pl-2">History</h3>
           <div className="w-full h-full flex flex-col gap-1">
             {isLoadingChats ? (
-              // Skeleton untuk histori chat
+              // Skeleton for chat history
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               Array.from({ length: 5 }).map((_, i) => (
                 <div
@@ -173,15 +209,41 @@ const Sidebar = () => {
               </div>
             ) : (
               filteredChats.map((chat) => (
-                <Link
-                  key={chat.id}
-                  href={`/chat/${chat.id}`}
-                  className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 active:bg-foreground-900 ${
-                    pathname === `/chat/${chat.id}` ? "bg-foreground-900 text-primary" : ""
-                  }`}
-                >
-                  {chat.title}
-                </Link>
+                <div key={chat.id} className="group relative flex items-center">
+                  <Link
+                    href={`/chat/${chat.id}`}
+                    className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 active:bg-foreground-900 ${
+                      pathname === `/chat/${chat.id}`
+                        ? "bg-foreground-900 text-primary"
+                        : ""
+                    }`}
+                  >
+                    {chat.title}
+                  </Link>
+                  <div className="absolute right-2 hidden group-hover:flex items-center gap-1 bg-foreground-900 rounded-lg p-1">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedChat(chat);
+                        setEditModalOpen(true);
+                      }}
+                      className="p-1.5 hover:bg-foreground-800 rounded-lg text-primary transition-colors"
+                      title="Edit chat"
+                    >
+                      <BiEdit className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDeleteChat(chat.id);
+                      }}
+                      className="p-1.5 hover:bg-foreground-800 rounded-lg text-red-500 transition-colors"
+                      title="Delete chat"
+                    >
+                      <BiTrash className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               ))
             )}
           </div>
@@ -206,13 +268,23 @@ const Sidebar = () => {
           </button>
         </div>
       </aside>
-
-      {/* Modals */}
+      {/* Modals */}{" "}
       <Portal.Root>
         <NewChatModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onChatCreated={handleChatCreated}
+        />
+      </Portal.Root>
+      <Portal.Root>
+        <EditChatModal
+          isOpen={editModalOpen}
+          onClose={() => {
+            setEditModalOpen(false);
+            setSelectedChat(null);
+          }}
+          chat={selectedChat}
+          onEditChat={handleEditChat}
         />
       </Portal.Root>
     </>

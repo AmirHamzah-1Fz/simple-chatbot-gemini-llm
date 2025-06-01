@@ -168,7 +168,7 @@ const HomeContent = () => {
                       handleSubmit(e as any);
                     }
                   }}
-                  placeholder="Press Enter to send, Shift + Enter for new line"
+                  placeholder="Type your message here"
                   className="flex-1 h-auto px-2 min-h-[40px] ring-none outline-none resize-none placeholder:text-body leading-normal bg-transparent"
                   aria-label="Chat input"
                 />
