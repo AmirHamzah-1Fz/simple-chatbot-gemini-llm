@@ -3,5 +3,5 @@ export default function ChatLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <>{children}</>;
 }

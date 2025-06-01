@@ -4,8 +4,8 @@ import { BiEdit, BiKey, BiSearch } from "react-icons/bi";
 import { CiSettings } from "react-icons/ci";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useSidebar } from "./SidebarContext";
-import { supabase } from "@/lib/supabase";
-import type { Chat } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase-client";
+import type { Chat } from "@/lib/supabase-client";
 import { NewChatModal } from "./NewChatModal";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -19,6 +19,10 @@ const Sidebar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const pathname = usePathname();
+
+  // Get current chat title
+  const currentChatId = pathname?.split("/").pop();
+  const currentChat = chats.find((chat) => chat.id === currentChatId);
 
   // Fetch chat history
   useEffect(() => {
@@ -107,7 +111,9 @@ const Sidebar = () => {
       >
         <div className="w-full h-auto flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <div className="w-full flex items-center gap-1 justify-between">
-            <h2 className="text-head text-lg truncate">Chat History</h2>
+            <h2 className="text-head text-lg truncate">
+              {currentChat ? currentChat.title : "New Chat"}
+            </h2>
 
             {/* Add New Chat*/}
             <button

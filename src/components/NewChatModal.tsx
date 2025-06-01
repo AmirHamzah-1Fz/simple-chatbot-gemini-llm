@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
-import type { Chat } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase-client";
+import type { Chat } from "@/lib/supabase-client";
 
 interface NewChatModalProps {
   isOpen: boolean;
