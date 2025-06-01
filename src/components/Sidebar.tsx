@@ -138,12 +138,12 @@ const Sidebar = () => {
         {/* Chat History */}
         <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-4 pb-12 border-b border-border-800">
           <h3 className="text-lg font-semibold text-body pl-2">History</h3>
-          <div className="w-full h-full flex flex-col gap-0">
+          <div className="w-full h-full flex flex-col gap-1">
             {filteredChats.map((chat) => (
               <Link
                 key={chat.id}
                 href={`/chat/${chat.id}`}
-                className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
+                className={`text-head font-normal text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
                   pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
                 }`}
               >
