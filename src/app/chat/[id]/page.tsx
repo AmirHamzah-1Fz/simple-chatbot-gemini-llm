@@ -229,6 +229,7 @@ export default function ChatPage({
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           components={{
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             table: ({ node, ...props }) => (
                               <div className="overflow-x-auto w-full">
                                 <table {...props} />
