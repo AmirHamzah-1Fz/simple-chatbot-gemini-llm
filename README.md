@@ -2,6 +2,8 @@
 
 A simple web-based chatbot interface powered by Google's Gemini LLM API. This project allows you to interact with an advanced language model in real-time.
 
+![Project Screenshot](public/screenshot.png)
+
 ## Features
 
 - Modern and responsive user interface
