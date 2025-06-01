@@ -165,7 +165,7 @@ const Sidebar = () => {
                 </p>
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="flex items-center gap-2 py-2 px-4 mt-1 bg-primary text-white text-sm rounded-xl hover:bg-primary/90 transition-colors"
+                  className="flex items-center gap-2 py-1.5 px-2.5 mt-1 bg-primary text-white text-sm rounded-xl hover:bg-primary/90 transition-colors"
                 >
                   <BiPlus className="w-6 h-6" />
                   New Chat

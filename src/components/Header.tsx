@@ -66,7 +66,7 @@ const Header = () => {
         {/* Navigation */}
         <nav className="w-auto h-auto text-primary">
           <div className="max-md:hidden flex items-center gap-3">
-            <a href="https://www.github.com/amirhamzah-1fz/simple-chatbot-ui">
+            <a href="https://www.github.com/amirhamzah-1fz/simple-chatbot-gemini-llm" target="_blank">
               <FaGithub className="w-[24px] h-[24px] shrink-0" />
             </a>
 
