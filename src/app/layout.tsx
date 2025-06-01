@@ -6,8 +6,31 @@ import "./globals.css";
 const figtree = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ThundersAI - Quick Start",
-  description: "Chat with ThundersAI powered by Google Gemini",
+  title: "Thunders AI - Quick Start",
+  description: "Chat with ThundersAI powered by Google Gemini AI.",
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Thunders AI - Quick Start",
+    description: "Chat with ThundersAI powered by Google Gemini AI.",
+    url: "https://thunders-ai.vercel.app/",
+    siteName: "Thunders AI",
+    images: [
+      {
+        url: "/thunders-ai-favicon.svg",
+        width: 400,
+        height: 400,
+        alt: "Thunders AI Logo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Thunders AI - Quick Start",
+    description: "Chat with ThundersAI powered by Google Gemini AI.",
+    images: ["/thunders-ai-favicon.svg"],
+    creator: "@yourtwitter",
+  },
 };
 
 export default function RootLayout({
