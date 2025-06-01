@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Simple Chatbot Interface
 
-## Getting Started
+A simple web-based chatbot interface powered by Google's Gemini LLM API. This project allows you to interact with an advanced language model in real-time.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Modern and responsive user interface
+- Real-time chat interaction
+- Integration with Google's Gemini LLM API
+- Easy to configure and extend
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js (v16 or newer)
+- PNPM package manager
+- Gemini API key from Google AI Studio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+1. **Clone the repository**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/AmirHamzah-1Fz/simple-chatbot-gemini-llm.git
+   cd simple-chatbot-gemini-llm
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   pnpm install
+   ```
 
-## Deploy on Vercel
+3. **Configure API Key**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - Copy `.env.example` to `.env.local`
+   - Enter your Gemini API key in the provided variable
+   - Get your API key at: https://aistudio.google.com/apikey
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Run the application**
+   ```bash
+   pnpm run dev
+   ```
+
+## Usage
+
+- Open your browser at `http://localhost:3000`
+- Start chatting by typing your message in the input field and press Enter/send
+- The bot will respond to your message in real-time
+
+## Contributing
+
+1. Fork this repository
+2. Create a feature branch (`git checkout -b new-feature`)
+3. Commit your changes (`git commit -m 'Add new feature'`)
+4. Push to the branch (`git push origin new-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the Apache 2.0 License. See the LICENSE file for details.
