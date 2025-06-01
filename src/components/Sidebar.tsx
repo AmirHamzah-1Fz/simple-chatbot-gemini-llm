@@ -1,6 +1,6 @@
 "use client";
 
-import { BiEdit, BiKey, BiSearch } from "react-icons/bi";
+import { BiEdit, BiKey, BiSearch, BiPlus } from "react-icons/bi";
 import { CiSettings } from "react-icons/ci";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useSidebar } from "./SidebarContext";
@@ -17,6 +17,7 @@ const Sidebar = () => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoadingChats, setIsLoadingChats] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -27,6 +28,7 @@ const Sidebar = () => {
   // Fetch chat history
   useEffect(() => {
     const fetchChats = async () => {
+      setIsLoadingChats(true);
       const { data, error } = await supabase
         .from("chats")
         .select("*")
@@ -34,10 +36,12 @@ const Sidebar = () => {
 
       if (error) {
         console.error("Error fetching chats:", error);
+        setIsLoadingChats(false);
         return;
       }
 
       setChats(data);
+      setIsLoadingChats(false);
     };
 
     fetchChats();
@@ -111,8 +115,14 @@ const Sidebar = () => {
       >
         <div className="w-full h-auto flex p-4 flex-col gap-6 pb-12 border-b border-border-800">
           <div className="w-full flex items-center gap-1 justify-between">
-            <h2 className="text-head text-lg truncate">
-              {currentChat ? currentChat.title : "New Chat"}
+            <h2 className="text-head text-lg truncate min-h-[1.5em]">
+              {isLoadingChats ? (
+                <span className="inline-block w-32 h-5 bg-foreground-800 rounded animate-pulse" />
+              ) : currentChat ? (
+                currentChat.title
+              ) : (
+                "New Chat"
+              )}
             </h2>
 
             {/* Add New Chat*/}
@@ -138,19 +148,35 @@ const Sidebar = () => {
         <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-4 pb-12 border-b border-border-800">
           <h3 className="text-lg font-semibold text-body pl-2">History</h3>
           <div className="w-full h-full flex flex-col gap-1">
-            {filteredChats.length === 0 ? (
+            {isLoadingChats ? (
+              // Skeleton untuk histori chat
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="w-full h-4 bg-foreground-800 rounded-xl animate-pulse mb-1"
+                />
+              ))
+            ) : filteredChats.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-2">
                 <p className="text-body text-sm">No conversations yet</p>
                 <p className="text-xs text-body/60">
                   Start a new chat by clicking the edit button above
                 </p>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="flex items-center gap-2 py-2 px-4 mt-1 bg-primary text-white text-sm rounded-xl hover:bg-primary/90 transition-colors"
+                >
+                  <BiPlus className="w-6 h-6" />
+                  New Chat
+                </button>
               </div>
             ) : (
               filteredChats.map((chat) => (
                 <Link
                   key={chat.id}
                   href={`/chat/${chat.id}`}
-                  className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
+                  className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 active:bg-foreground-900 ${
                     pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
                   }`}
                 >
