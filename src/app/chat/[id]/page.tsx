@@ -149,7 +149,7 @@ export default function ChatPage({
     <Layout>
       <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative">
         {/* Chat Messages */}
-        <div className="w-full h-[65dvh] flex flex-col gap-10 px-2 overflow-y-auto items-stretch">
+        <div className="w-full h-[65dvh] flex flex-col gap-10 px-2 overflow-y-auto items-stretch py-10">
           {!chat.messages || chat.messages.length === 0 ? (
             <div className="w-full h-[100dvh] translate-y-10 flex flex-col items-center justify-center text-center">
               <h2 className="text-4xl leading-12">
@@ -175,19 +175,19 @@ export default function ChatPage({
             chat.messages?.map((msg, idx) =>
               msg.role === "user" ? (
                 <div key={idx} className="flex w-full justify-end">
-                  <div className="max-w-[70%] max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-background text-white rounded-2xl rounded-tr-md px-4 py-2 text-left shadow-md ml-auto prose prose-invert prose-p:my-0">
+                  <div className="max-w-[70%] max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-teal-700 selection:bg-foreground-800/20 selection:text-foreground-800 shadow-lg shadow-primary/30 text-white rounded-2xl rounded-tr-md px-4 py-2 text-left ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                   </div>
                 </div>
               ) : (
                 <div
                   key={idx}
-                  className="flex w-full justify-start items-start gap-3"
+                  className="flex w-full justify-start items-start gap-3 "
                 >
                   <div className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground-900 text-primary text-xl shrink-0">
                     <RiSupabaseFill className="w-6 h-6" />
                   </div>
-                  <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-2">
+                  <div className="lg:max-w-[70%] max-md:max-w-[100%] bg-foreground-900 text-head rounded-2xl px-4 py-2 text-left shadow-md prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:bg-transparent prose-code:p-0 prose-code:text-primary prose-a:text-primary prose-em:text-primary prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-primary/90 break-words">
                     <ReactMarkdown>{msg.content}</ReactMarkdown>
                     {isLoading && idx === chat.messages.length - 1 && (
                       <span className="animate-pulse ml-1">|</span>
