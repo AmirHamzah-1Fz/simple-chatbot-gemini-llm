@@ -133,26 +133,33 @@ const Sidebar = () => {
               placeholder="Search chats..."
             />
           </div>
-        </div>
-
+        </div>{" "}
         {/* Chat History */}
         <div className="w-full overflow-auto h-auto flex-1 flex p-4 flex-col gap-4 pb-12 border-b border-border-800">
           <h3 className="text-lg font-semibold text-body pl-2">History</h3>
           <div className="w-full h-full flex flex-col gap-1">
-            {filteredChats.map((chat) => (
-              <Link
-                key={chat.id}
-                href={`/chat/${chat.id}`}
-                className={`text-head font-normal text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
-                  pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
-                }`}
-              >
-                {chat.title}
-              </Link>
-            ))}
+            {filteredChats.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full gap-2 text-center px-2">
+                <p className="text-body text-sm">No conversations yet</p>
+                <p className="text-xs text-body/60">
+                  Start a new chat by clicking the edit button above
+                </p>
+              </div>
+            ) : (
+              filteredChats.map((chat) => (
+                <Link
+                  key={chat.id}
+                  href={`/chat/${chat.id}`}
+                  className={`text-head font-medium text-sm w-full h-fit truncate cursor-pointer p-2 rounded-xl hover:bg-foreground-900 ${
+                    pathname === `/chat/${chat.id}` ? "bg-foreground-900" : ""
+                  }`}
+                >
+                  {chat.title}
+                </Link>
+              ))
+            )}
           </div>
         </div>
-
         {/* Footer */}
         <div className="w-full flex flex-col border-t border-t-border-800 py-4 px-4">
           <a href="/api-key">
