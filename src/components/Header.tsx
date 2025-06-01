@@ -10,6 +10,7 @@ import { useSidebar } from "./SidebarContext";
 
 import Logo from "../assets/logo/thunders-ai.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 const Header = () => {
   const { isOpen, toggleSidebar } = useSidebar();
@@ -41,11 +42,11 @@ const Header = () => {
           </button>
 
           {/* Logo */}
-          <a href="/" className="max-lg:hidden w-auto h-auto flex items-center gap-3">
+          <Link href="/" className="max-lg:hidden w-auto h-auto flex items-center gap-3">
             {/* <Image src={Logo} alt="Logo" className="w-6 h-6 text-primary" /> */}
             <Image alt="Logo" src={Logo} className="w-6 h-6" />
             <h1 className="text-xl">ThundersAI</h1>
-          </a>
+          </Link>
         </div>
 
         {/* Sidebar Menu Mobile */}
@@ -61,10 +62,10 @@ const Header = () => {
         </button>
 
         {/* Logo */}
-        <a href="/" className="lg:hidden w-auto h-auto flex items-center gap-4 max-md:gap-3">
+        <Link href="/" className="lg:hidden w-auto h-auto flex items-center gap-4 max-md:gap-3">
           <Image src={Logo} alt="Logo" className="w-6 h-6 text-primary" />
           <h1 className="text-xl">ThundersAI</h1>
-        </a>
+        </Link>
 
         {/* Navigation */}
         <nav className="w-auto h-auto text-primary">

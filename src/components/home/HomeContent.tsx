@@ -76,8 +76,8 @@ const HomeContent = () => {
           return updated;
         });
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error: unknown) {
-      // eslint-disable-line @typescript-eslint/no-unused-vars
       setMessages((prev) => [
         ...prev,
         { role: "bot", content: "Sorry, error has occurred." },
@@ -164,6 +164,7 @@ const HomeContent = () => {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       handleSubmit(e as any);
                     }
                   }}
