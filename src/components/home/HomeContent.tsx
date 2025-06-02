@@ -94,7 +94,7 @@ const HomeContent = () => {
         {!hasMessages && (
           <div className="w-full h-[calc(100dvh-120px)] -translate-y-6 flex flex-col items-center justify-center lg:mt-0 mt-0 min-h-[400px]">
             <Image src={Logo} alt="Logo" className="w-5 h-5 text-primary" />
-            <h2 className="text-4xl leading-12 mb-8 mt-4">Welcome to Thunders AI</h2>
+            <h2 className="text-4xl leading-12 mb-8 mt-4">Welcome to ThundersAI</h2>
             <button
               onClick={handleNewChat}
               className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors"
