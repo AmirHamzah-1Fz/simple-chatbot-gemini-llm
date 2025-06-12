@@ -189,7 +189,7 @@ export default function ChatPage({
       <div className="container max-w-3xl mx-auto w-full h-[100dvh] relative">
         {/* Chat Messages */}
         <div
-          className={`w-full h-[65dvh] flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch ${
+          className={`w-full lg:h-[65dvh] h-[85dvh] pb-24 max-lg:pb-44 flex flex-col gap-10 px-2 max-w-screen overflow-y-auto items-stretch ${
             !chat.messages || chat.messages.length === 0 ? "py-0" : "py-10"
           }`}
         >
@@ -218,7 +218,7 @@ export default function ChatPage({
             chat.messages?.map((msg, idx) =>
               msg.role === "user" ? (
                 <div key={idx} className="flex w-full justify-end">
-                  <div className="max-w-[70%] w-fit max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-teal-700 selection:bg-foreground-800/20 selection:text-foreground-800 shadow-lg shadow-primary/30 text-white rounded-2xl rounded-tr-md px-4 py-2 text-left ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:p-0 prose-code:text-primary prose-code:bg-transparent prose-a:text-head prose-em:text-head prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-head prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
+                  <div className="max-w-[70%] w-fit max-md:max-w-[75%] bg-gradient-to-r from-teal-600 to-teal-700 selection:bg-foreground-800/20 selection:text-foreground-800 shadow-lg shadow-primary/30 text-white rounded-2xl rounded-tr-md px-4 py-2 text-left ml-auto prose prose-invert prose-p:my-0 prose-pre:bg-foreground-800 prose-pre:text-xs prose-pre:rounded-xl prose-pre:p-3 prose-code:p-0 prose-code:text-head prose-code:bg-transparent prose-a:text-head prose-em:text-head prose-blockquote:border-primary/40 prose-blockquote:text-primary/80 prose-ol:pl-6 prose-ul:pl-6 prose-li:marker:text-primary/60 prose-headings:font-bold prose-headings:text-head prose-table:border-collapse prose-table:w-full prose-td:border prose-td:border-border-700 prose-td:px-3 prose-td:py-2 prose-th:border prose-th:border-border-700 prose-th:px-3 prose-th:py-2 prose-th:bg-foreground-800 break-words">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {msg.content}
                     </ReactMarkdown>
@@ -305,14 +305,15 @@ export default function ChatPage({
 
         {/* Input Area */}
         <div
-          className={`px-[5%] fixed bottom-6 max-lg:bottom-8 left-0 w-full z-20 bg-background/80 backdrop-blur-sm ${
+          className={`px-[5%] fixed bottom-6 max-lg:bottom-8 left-0 w-full z-20 bg-background ${
             isOpen ? "lg:translate-x-1/9" : "lg:translate-x-0"
           }`}
         >
-          <div className="container max-w-3xl mx-auto w-full">
+          <div className="relative container max-w-3xl mx-auto w-full">
+            <div className="absolute max-lg:-top-54 -top-20 w-full max-lg:h-[210px] h-[100px] bg-gradient-to-t from-background to-transparent pointer-events-none z-[100]" />
             <form
               onSubmit={handleSubmit}
-              className="w-full min-h-[100px] flex justify-between items-center gap-2 p-4 border border-border-700 rounded-3xl mt-4 mb-4"
+              className="relative w-full min-h-[100px] z-[200] flex justify-between items-center gap-2 p-4 border border-border-700 rounded-3xl mt-4 mb-4"
             >
               <button
                 type="button"
