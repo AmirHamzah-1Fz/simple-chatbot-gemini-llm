@@ -311,6 +311,7 @@ export default function ChatPage({
         >
           <div className="relative container max-w-3xl mx-auto w-full">
             <div className="absolute max-lg:-top-54 -top-20 w-full max-lg:h-[210px] h-[100px] bg-gradient-to-t from-background to-transparent pointer-events-none z-[100]" />
+            <div className="fixed bottom-0 w-full h-[50px] bg-background z-[50]" />
             <form
               onSubmit={handleSubmit}
               className="relative w-full min-h-[100px] z-[200] flex justify-between items-center gap-2 p-4 border border-border-700 rounded-3xl mt-4 mb-4"
