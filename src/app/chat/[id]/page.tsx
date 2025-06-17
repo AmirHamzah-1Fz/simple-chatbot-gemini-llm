@@ -305,16 +305,16 @@ export default function ChatPage({
 
         {/* Input Area */}
         <div
-          className={`px-[5%] fixed bottom-6 max-lg:bottom-8 left-0 w-full z-20 bg-background ${
-            isOpen ? "lg:translate-x-1/9" : "lg:translate-x-0"
+          className={`px-[5%] fixed bottom-6 xl:bottom-8 max-lg:bottom-8 left-0 w-full z-20 bg-background ${
+            isOpen ? "lg:translate-x-1/9 xl:translate-x-1/12" : "lg:translate-x-0"
           }`}
         >
           <div className="relative container max-w-3xl mx-auto w-full">
-            <div className="absolute max-lg:-top-54 -top-20 w-full max-lg:h-[210px] h-[100px] bg-gradient-to-t from-background to-transparent pointer-events-none z-[100]" />
+            <div className="absolute max-lg:-top-54 -top-20 xl:-top-44 w-full max-lg:h-[210px] h-[100px] bg-gradient-to-t from-background to-transparent pointer-events-none z-[100]" />
             <div className="fixed bottom-0 w-full h-[50px] bg-background z-[50]" />
             <form
               onSubmit={handleSubmit}
-              className="relative w-full min-h-[100px] z-[200] flex justify-between items-center gap-2 p-4 border border-border-700 rounded-3xl mt-4 mb-4"
+              className="relative w-full min-h-[100px] z-[200] flex justify-between items-center gap-2 p-4 border border-border-700 rounded-3xl mt-4 mb-4 top-4"
             >
               <button
                 type="button"
